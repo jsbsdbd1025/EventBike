@@ -53,11 +53,17 @@ public class MainActivity extends AppCompatActivity {
         EventBike.getDefault().unRegister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(MessageEvent event) {
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onAsyncEvent(MessageEvent event) {
         textView.setText("Hello EventBus!");
-        Log.e(TAG, "Excuse Me");
+        Log.e(TAG, Thread.currentThread().getName());
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainEvent(MessageEvent event) {
+        textView.setText("Hello EventBus!");
+        Log.e(TAG, Thread.currentThread().getName());
+    }
 
 }
